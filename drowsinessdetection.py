@@ -10,12 +10,26 @@ sound = pygame.mixer.Sound('C:/Users/ABHIMANYU.M.B/Desktop/ML PRO/Machine-Learni
 
 
 # Load the trained model
-model = load_model('C:/Users/ABHIMANYU.M.B/Desktop/ML PRO/Machine-Learning-Projects-main/Drowsiness detection [OPEN CV]/models/cnnCat2.h5', compile=False)
+model = load_model('C:/Users/ABHIMANYU.M.B/Desktop/ML PROimport cv2
+import os
+import pygame
+import numpy as np
+from tensorflow.keras.models import load_model
 
-# Load Haarcascades for Face and Eye Detection
-face = cv2.CascadeClassifier('C:/Users/ABHIMANYU.M.B/Desktop/ML PRO/Machine-Learning-Projects-main/Drowsiness detection [OPEN CV]/haar cascade files/haarcascade_frontalface_alt.xml')
-leye = cv2.CascadeClassifier('C:/Users/ABHIMANYU.M.B/Desktop/ML PRO/Machine-Learning-Projects-main/Drowsiness detection [OPEN CV]/haar cascade files/haarcascade_lefteye_2splits.xml')
-reye = cv2.CascadeClassifier('C:/Users/ABHIMANYU.M.B/Desktop/ML PRO/Machine-Learning-Projects-main/Drowsiness detection [OPEN CV]/haar cascade files/haarcascade_righteye_2splits.xml')
+# Dynamically resolve absolute base path
+base_path = os.path.dirname(os.path.abspath(__file__))
+
+# Initialize the mixer for playing the alarm
+pygame.mixer.init()
+sound = pygame.mixer.Sound(os.path.join(base_path, 'alarm.wav'))
+
+# Load the trained model
+model = load_model(os.path.join(base_path, 'models', 'cnnCat2.h5'), compile=False)
+
+# Load Haarcascade XML classifiers
+face = cv2.CascadeClassifier(os.path.join(base_path, 'haar cascade files', 'haarcascade_frontalface_alt.xml'))
+leye = cv2.CascadeClassifier(os.path.join(base_path, 'haar cascade files', 'haarcascade_lefteye_2splits.xml'))
+reye = cv2.CascadeClassifier(os.path.join(base_path, 'haar cascade files', 'haarcascade_righteye_2splits.xml'))
 
 # Start video capture
 cap = cv2.VideoCapture(0)
